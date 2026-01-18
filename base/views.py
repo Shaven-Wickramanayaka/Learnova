@@ -4,7 +4,6 @@ import json
 import googleapiclient.discovery
 import google.generativeai as genai
 import os
-# Made By Shaven Wickramanayaka
 from tempfile import TemporaryFile
 from pyudemy import Udemy
 from youtubesearchpython import VideosSearch
@@ -19,25 +18,24 @@ def sendEmail(name, message, recipients,subject):
     		recipient_list=['byteforce0000.dev@gmail.com'])
 
 def scrapeSite(path):
-    # steps = []
-    # input_text = f'Generate a list to learn {path}. Each list item should start with a number. There should be at more 20 list items. Do not create sub lists under each list item, instead add them to the main list. Each list item should be less than 6 words and should start with the word "how to learn". include the word {path} in each list item. Each step should include a quantative skill that can be developed.Do not mention hours required for each list item'
-    # genai.configure(api_key="AIzaSyAxEpXCKntb1rAqMSqoFGpBX3zWpIHjAT0")
-    # model = genai.GenerativeModel("gemini-3-flash-preview")
-    # bard_output = model.generate_content(input_text).text
-    bard_output = ['1. how to learn C# arithmetic', '2. how to learn C# summation', '3. how to learn C# subtraction', '4. how to learn C# multiplication', '5. how to learn C# division', '6. how to learn C# percentages', '7. how to learn C# modulo', '8. how to learn C# increments', '9. how to learn C# averages', '10. how to learn C# rounding', '11. how to learn C# probability', '12. how to learn C# statistics', '13. how to learn C# algebra', '14. how to learn C# geometry', '15. how to learn C# trigonometry', '16. how to learn C# matrices', '17. how to learn C# calculus', '18. how to learn C# algorithms', '19. how to learn C# ratios', '20. how to learn C# counting']
-    # print(bard_output)
-    # bard_output = bard_output.replace("*", "")
-    # bard_output = bard_output.replace("Step", "")
-    # bard_output = bard_output.replace("`", "")
-    # fp = TemporaryFile('w+t')
-    # fp.write(str(bard_output))
-    # fp.seek(0)
-    # for lines in fp:
-    #     lines = lines.strip()
-    #     if lines and lines[0].isdigit():
-    #         steps.append(lines)
-    # print(steps)
-    return bard_output
+    steps = []
+    input_text = f'Generate a list to learn {path}. Each list item should start with a number. There should be at more 20 list items. Do not create sub lists under each list item, instead add them to the main list. Each list item should be less than 6 words and should start with the word "how to learn". include the word {path} in each list item. Each step should include a quantative skill that can be developed.Do not mention hours required for each list item'
+    genai.configure(api_key="AIzaSyAxEpXCKntb1rAqMSqoFGpBX3zWpIHjAT0")
+    model = genai.GenerativeModel("gemini-3-flash-preview")
+    bard_output = model.generate_content(input_text).text
+    print(bard_output)
+    bard_output = bard_output.replace("*", "")
+    bard_output = bard_output.replace("Step", "")
+    bard_output = bard_output.replace("`", "")
+    fp = TemporaryFile('w+t')
+    fp.write(str(bard_output))
+    fp.seek(0)
+    for lines in fp:
+        lines = lines.strip()
+        if lines and lines[0].isdigit():
+            steps.append(lines)
+    print(steps)
+    return steps
 
 def trim_string(s: str, max_words: int) -> str:
     words = s.split()
@@ -87,7 +85,6 @@ def searchudemy(request,prompt,data):
     request.session['udurl'] = udemyurl
     request.session['udtitle'] = udemytitle
     request.session['udthumbnail'] = udemythumbnail
-    # ? return udemyurl,udemythumbnail,udemytitle
 
 def about(request):
     return render(request,'about.html')
@@ -102,10 +99,7 @@ def home(request):
     return render(request, 'index.html')
 
 def generate(request):
-    if request.COOKIES.get('bardKey'):
         return render(request, 'generate.html')
-    else:
-        return render(request, 'cookie.html')
     
 
 def result(request):
@@ -139,15 +133,6 @@ def result(request):
 def stuff(request):
     return render(request, 'result.html')
 
-def userCookie(request):
-    return render(request, 'cookie.html')
-def setCookie(request):
-    cookie = "Noot there"
-    if request.method == 'POST':
-        cookie = request.POST['cookie']
-    response = render(request, 'generate.html')
-    response.set_cookie('bardKey', cookie,max_age=432000 )
-    return response
 
     
 

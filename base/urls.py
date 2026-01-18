@@ -8,6 +8,5 @@ urlpatterns = [
     path('roadmap/',views.result,name="check"),
     #Made by IceFly147
     path('dev/',views.stuff),
-    path('cookie/', views.setCookie, name="cookie")
  
 ]
