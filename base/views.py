@@ -20,7 +20,7 @@ def sendEmail(name, message, recipients,subject):
 def scrapeSite(path):
     steps = []
     input_text = f'Generate a list to learn {path}. Each list item should start with a number. There should be at more 20 list items. Do not create sub lists under each list item, instead add them to the main list. Each list item should be less than 6 words and should start with the word "how to learn". include the word {path} in each list item. Each step should include a quantative skill that can be developed.Do not mention hours required for each list item'
-    genai.configure(api_key="AIzaSyAxEpXCKntb1rAqMSqoFGpBX3zWpIHjAT0")
+    genai.configure(api_key="aada")
     model = genai.GenerativeModel("gemini-3-flash-preview")
     bard_output = model.generate_content(input_text).text
     print(bard_output)
